@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:twitter_clone_coding/options/actions/profile.dart';
-import 'package:twitter_clone_coding/options/actions/setting.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -9,6 +7,7 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final List<Widget> actions;
   final Color bgColor;
   final Color textColor;
+  final List<Tab>? tabs;
 
   CustomAppBar({
     Key? key,
@@ -18,13 +17,17 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.textColor = Colors.white,
     this.fontSize = 20,
     this.fontWeight = FontWeight.bold,
-  }) : super(key: key);
+    this.tabs,
+  });
 
   @override
   _CustomAppBarState createState() => _CustomAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize {
+    return Size.fromHeight(
+        kToolbarHeight + (tabs != null ? kTextTabBarHeight : 0));
+  }
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
@@ -36,18 +39,24 @@ class _CustomAppBarState extends State<CustomAppBar> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const ProfileAction(),
+          widget.actions[0],
           Text(
             widget.title,
             style: TextStyle(
-                color: widget.textColor,
-                fontSize: widget.fontSize,
-                fontWeight: widget.fontWeight),
+              color: widget.textColor,
+              fontSize: widget.fontSize,
+              fontWeight: widget.fontWeight,
+            ),
           ),
-          const SettingAction(),
+          widget.actions[1],
         ],
       ),
-      actions: widget.actions,
+      bottom: widget.tabs != null
+          ? TabBar(
+              tabs: widget.tabs!,
+              indicatorPadding: EdgeInsets.symmetric(horizontal: 70),
+            )
+          : null,
     );
   }
 }
