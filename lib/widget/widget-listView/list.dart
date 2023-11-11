@@ -23,7 +23,8 @@ class _CustomListViewState extends State<CustomListView> {
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.itemCount,
-                itemBuilder: widget.itemBuilder),
+                itemBuilder: widget.itemBuilder,
+                ),
           )
   }
 }
