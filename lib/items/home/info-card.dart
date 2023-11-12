@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:twitter_clone_coding/factory/home-info-body-factory.dart';
+import 'package:twitter_clone_coding/static/home-contents.dart';
+import 'package:twitter_clone_coding/widget/widget-container/ratio-container.dart';
 
+// ignore: must_be_immutable
 class InfoCard extends StatelessWidget {
-  const InfoCard({super.key});
+  ContentModel item;
+  InfoCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Column(
+      children: [
+        InfoCardHeader(),
+        InfoCardBodyFactory.create(item: item).build(context),
+        InfoCardBottom(),
+      ],
+    );
   }
 }
 
@@ -14,7 +25,11 @@ class InfoCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return RatioContainer(
+      child: Row(
+        children: [],
+      ),
+    );
   }
 }
 
@@ -23,6 +38,10 @@ class InfoCardBottom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return RatioContainer(
+      child: Row(
+        children: [],
+      ),
+    );
   }
 }
