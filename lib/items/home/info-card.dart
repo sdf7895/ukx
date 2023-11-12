@@ -26,6 +26,7 @@ class InfoCardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RatioContainer(
+      ratioHeight: 0.2,
       child: Row(
         children: [],
       ),
@@ -39,6 +40,7 @@ class InfoCardBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RatioContainer(
+      ratioHeight: 0.2,
       child: Row(
         children: [],
       ),

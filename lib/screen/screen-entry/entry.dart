@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:twitter_clone_coding/items/home/info-card.dart';
 import 'package:twitter_clone_coding/options/actions/setting.dart';
+import 'package:twitter_clone_coding/static/home-contents.dart';
 import 'package:twitter_clone_coding/style/text/tabs-style.dart';
 import 'package:twitter_clone_coding/texts/strings.dart';
 import 'package:twitter_clone_coding/widget/widget-appbar/appbar.dart';
 import 'package:twitter_clone_coding/widget/widget-bottomNavi/bottom-navigation.dart';
 import 'package:twitter_clone_coding/widget/widget-container/main-container.dart';
+import 'package:twitter_clone_coding/widget/widget-listView/list.dart';
 
 import '../../options/actions/profile.dart';
 
@@ -29,7 +32,22 @@ class _EntryScreenState extends State<EntryScreen> {
           ],
           tabs: tabs,
         ),
-        child: TabBarView(children: [Container(), Container()]),
+        child: TabBarView(
+          children: [
+            CustomListView(
+              itemCount: 2,
+              itemBuilder: (BuildContext context, index) {
+                return InfoCard(
+                  item: ContentModel(
+                      userThumbnail: '1',
+                      content: 'text',
+                      contentType: 'image'),
+                );
+              },
+            ),
+            Container()
+          ],
+        ),
         bottomNavigationBar: CustomBottomNavigation(),
       ),
     );

@@ -7,10 +7,10 @@ class CustomListView extends StatefulWidget {
   final IndexedWidgetBuilder itemBuilder;
 
   CustomListView({
-      super.key,
-      required this.itemCount,
-      required this.itemBuilder,
-    });
+    super.key,
+    required this.itemCount,
+    required this.itemBuilder,
+  });
 
   @override
   State<CustomListView> createState() => _CustomListViewState();
@@ -20,11 +20,10 @@ class _CustomListViewState extends State<CustomListView> {
   @override
   Widget build(BuildContext context) {
     return RatioContainer(
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: widget.itemCount,
-                itemBuilder: widget.itemBuilder,
-                ),
-          )
+      child: ListView.builder(
+        itemCount: widget.itemCount,
+        itemBuilder: widget.itemBuilder,
+      ),
+    );
   }
 }
