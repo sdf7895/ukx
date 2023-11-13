@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twitter_clone_coding/items/home/info-card-gif-body.dart';
 import 'package:twitter_clone_coding/items/home/info-card-image-body.dart';
 import 'package:twitter_clone_coding/items/home/info-card-text-body.dart';
+import 'package:twitter_clone_coding/items/home/info-card-vedio-body.dart';
 
 import '../static/home-contents.dart';
 
@@ -18,6 +19,8 @@ abstract class InfoCardBodyFactory {
         return InfoCardGifBody(item: item);
       case 'text':
         return InfoCardTextBody(item: item);
+      case 'vedio':
+        return InfoCardVedioBody(item: item);
       default:
         return throw ArgumentError(
             'Unsupported shape type: ${item.contentType}');

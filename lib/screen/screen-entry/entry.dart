@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twitter_clone_coding/controller/list-view-controller.dart';
 import 'package:twitter_clone_coding/items/home/info-card.dart';
 import 'package:twitter_clone_coding/options/actions/setting.dart';
 import 'package:twitter_clone_coding/static/home-contents.dart';
@@ -19,36 +20,61 @@ class EntryScreen extends StatefulWidget {
 }
 
 class _EntryScreenState extends State<EntryScreen> {
+  List<ContentModel> homeData = HomeContent().homeContent;
+  ListViewController _listViewController = ListViewController();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: MainContainer(
-        appbar: CustomAppBar(
-          title: 'X',
-          actions: const [
-            ProfileAction(),
-            SettingAction(),
-          ],
-          tabs: tabs,
-        ),
-        child: TabBarView(
-          children: [
-            CustomListView(
-              itemCount: 2,
-              itemBuilder: (BuildContext context, index) {
-                return InfoCard(
-                  item: ContentModel(
-                      userThumbnail: '1',
-                      content: 'text',
-                      contentType: 'image'),
-                );
-              },
+      child: ListenableBuilder(
+        listenable: _listViewController,
+        builder: (context, child) {
+          return MainContainer(
+            appbar: _listViewController.scrollState
+                ? CustomAppBar(
+                    isOpen: _listViewController.scrollState,
+                    tabs: tabs,
+                    title: 'X',
+                    actions: const [
+                      ProfileAction(),
+                      SettingAction(),
+                    ],
+                  )
+                : null,
+            // ignore: sort_child_properties_last
+            child: TabBarView(
+              children: [
+                CustomListView(
+                  scrollTop: () {
+                    _listViewController.changeState(true);
+                  },
+                  scrollUp: () {
+                    _listViewController.changeState(true);
+                  },
+                  scrollDown: () {
+                    _listViewController.changeState(false);
+                  },
+                  itemCount: homeData.length,
+                  itemBuilder: (BuildContext context, index) {
+                    return InfoCard(
+                      item: ContentModel(
+                          user_id: homeData[index].user_id,
+                          userThumbnail: homeData[index].userThumbnail,
+                          content: homeData[index].content,
+                          contentType: homeData[index].contentType),
+                    );
+                  },
+                ),
+                Container()
+              ],
             ),
-            Container()
-          ],
-        ),
-        bottomNavigationBar: CustomBottomNavigation(),
+            bottomNavigationBar: _listViewController.scrollState
+                ? CustomBottomNavigation(
+                    isOpen: _listViewController.scrollState,
+                  )
+                : null,
+          );
+        },
       ),
     );
   }
