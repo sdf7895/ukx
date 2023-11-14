@@ -21,7 +21,8 @@ class EntryScreen extends StatefulWidget {
 
 class _EntryScreenState extends State<EntryScreen> {
   List<ContentModel> homeData = HomeContent().homeContent;
-  ListViewController _listViewController = ListViewController();
+  final ListViewController _listViewController = ListViewController();
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -30,17 +31,15 @@ class _EntryScreenState extends State<EntryScreen> {
         listenable: _listViewController,
         builder: (context, child) {
           return MainContainer(
-            appbar: _listViewController.scrollState
-                ? CustomAppBar(
-                    isOpen: _listViewController.scrollState,
-                    tabs: tabs,
-                    title: 'X',
-                    actions: const [
-                      ProfileAction(),
-                      SettingAction(),
-                    ],
-                  )
-                : null,
+            appbar: CustomAppBar(
+              isOpen: _listViewController.scrollState,
+              tabs: tabs,
+              title: 'X',
+              actions: const [
+                ProfileAction(),
+                SettingAction(),
+              ],
+            ),
             // ignore: sort_child_properties_last
             child: TabBarView(
               children: [
@@ -68,11 +67,9 @@ class _EntryScreenState extends State<EntryScreen> {
                 Container()
               ],
             ),
-            bottomNavigationBar: _listViewController.scrollState
-                ? CustomBottomNavigation(
-                    isOpen: _listViewController.scrollState,
-                  )
-                : null,
+            bottomNavigationBar: CustomBottomNavigation(
+              isOpen: _listViewController.scrollState,
+            ),
           );
         },
       ),

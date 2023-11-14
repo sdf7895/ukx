@@ -23,32 +23,24 @@ class CustomListView extends StatefulWidget {
 }
 
 class _CustomListViewState extends State<CustomListView> {
+  double pixels = 0.0;
   @override
   Widget build(BuildContext context) {
     return RatioContainer(
       child: NotificationListener<ScrollNotification>(
           onNotification: (ScrollNotification scrollInfo) {
-            if (scrollInfo is ScrollUpdateNotification) {
-              if (scrollInfo.scrollDelta! < 0) {
-                if (widget.scrollUp != null) {
-                  widget.scrollUp!();
-                }
-              } else if (scrollInfo.scrollDelta! > 0) {
-                if (widget.scrollDown != null) {
-                  widget.scrollDown!();
-                }
-              }
+            if (pixels == 0.0) {
+              widget.scrollTop!();
+            } else if (pixels < scrollInfo.metrics.pixels && pixels != 0.0) {
+              widget.scrollDown!();
+            } else if (pixels > scrollInfo.metrics.pixels && pixels != 0.0) {
+              widget.scrollUp!();
             }
+
             if (scrollInfo is ScrollEndNotification) {
-              ScrollMetrics metrics = scrollInfo.metrics;
-              if (metrics.pixels == metrics.minScrollExtent) {
-                print('top');
-                // 맨 위에 도달했을 때의 로직
-                if (widget.scrollTop != null) {
-                  widget.scrollTop!();
-                }
-              }
+              pixels = scrollInfo.metrics.pixels;
             }
+
             return true;
           },
           child: ListView.builder(

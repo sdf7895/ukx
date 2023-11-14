@@ -67,9 +67,40 @@ class InfoCardBottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RatioContainer(
-      ratioHeight: 0.2,
+      ratioWidth: 0.8,
+      ratioHeight: 0.3,
       child: Row(
-        children: [],
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.remove_red_eye,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.heart_broken,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.monitor_heart,
+              color: Colors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.auto_graph_rounded,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
     );
   }
