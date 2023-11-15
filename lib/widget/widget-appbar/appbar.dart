@@ -37,6 +37,7 @@ class _CustomAppBarState extends State<CustomAppBar>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
+  late Animation<double> _heightAnimation;
 
   @override
   Widget build(BuildContext context) {
@@ -45,34 +46,35 @@ class _CustomAppBarState extends State<CustomAppBar>
       builder: (context, child) {
         return SlideTransition(
           position: _offsetAnimation,
-          child: widget.isOpen
-              ? AppBar(
-                  backgroundColor: widget.bgColor,
-                  centerTitle: false,
-                  title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      widget.actions[0],
-                      Text(
-                        widget.title,
-                        style: TextStyle(
-                          color: widget.textColor,
-                          fontSize: widget.fontSize,
-                          fontWeight: widget.fontWeight,
-                        ),
-                      ),
-                      widget.actions[1],
-                    ],
+          child: SizedBox(
+            height: _heightAnimation.value,
+            child: AppBar(
+              backgroundColor: widget.bgColor,
+              centerTitle: false,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  widget.actions[0],
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                      color: widget.textColor,
+                      fontSize: widget.fontSize,
+                      fontWeight: widget.fontWeight,
+                    ),
                   ),
-                  bottom: widget.tabs != null
-                      ? TabBar(
-                          tabs: widget.tabs!,
-                          indicatorPadding:
-                              const EdgeInsets.symmetric(horizontal: 70),
-                        )
-                      : null,
-                )
-              : null,
+                  widget.actions[1],
+                ],
+              ),
+              bottom: widget.tabs != null
+                  ? TabBar(
+                      tabs: widget.tabs!,
+                      indicatorPadding:
+                          const EdgeInsets.symmetric(horizontal: 70),
+                    )
+                  : null,
+            ),
+          ),
         );
       },
     );
@@ -86,6 +88,16 @@ class _CustomAppBarState extends State<CustomAppBar>
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     )..forward();
+
+    _heightAnimation = Tween<double>(
+      begin: 50.0,
+      end: 250.0,
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.fastOutSlowIn,
+      ),
+    );
 
     _offsetAnimation = Tween<Offset>(
       begin: const Offset(0.0, -1.5),
