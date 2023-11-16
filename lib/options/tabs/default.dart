@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 
-class DefaultTabs extends StatelessWidget {
-  const DefaultTabs({super.key});
+import '../../style/text/tabs-style.dart';
+import '../../texts/strings.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
+class DefaultTabs {
+  static List<Tab> tabs = [
+    Tab(
+      child: Text(
+        AppBarDefaultTabBar.defatulOne,
+        style: TabStyles.defaultTab,
+      ),
+    ),
+    Tab(
+      child: Text(
+        AppBarDefaultTabBar.defaultTwo,
+        style: TabStyles.defaultTab,
+      ),
+    )
+  ];
+
+  DefaultTabs();
 }
