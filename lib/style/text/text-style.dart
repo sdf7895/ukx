@@ -6,4 +6,16 @@ class TextStyles {
     fontSize: 15,
     fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle infoBodyContentText = TextStyle(
+    color: Colors.white,
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const TextStyle defaultAppBarText = TextStyle(
+    color: Colors.white,
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+  );
 }

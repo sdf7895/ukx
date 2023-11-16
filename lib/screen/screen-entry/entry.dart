@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:twitter_clone_coding/controller/list-view-controller.dart';
 import 'package:twitter_clone_coding/items/home/info-card.dart';
 import 'package:twitter_clone_coding/options/actions/setting.dart';
+import 'package:twitter_clone_coding/options/tabs/default.dart';
+import 'package:twitter_clone_coding/screen/screen-content-create/content-create.dart';
 import 'package:twitter_clone_coding/static/home-contents.dart';
 import 'package:twitter_clone_coding/style/text/tabs-style.dart';
 import 'package:twitter_clone_coding/texts/strings.dart';
+import 'package:twitter_clone_coding/widget/widget-appbar/appbar-animation.dart';
 import 'package:twitter_clone_coding/widget/widget-appbar/appbar.dart';
 import 'package:twitter_clone_coding/widget/widget-bottomNavi/bottom-navigation.dart';
 import 'package:twitter_clone_coding/widget/widget-container/main-container.dart';
@@ -31,9 +34,9 @@ class _EntryScreenState extends State<EntryScreen> {
         listenable: _listViewController,
         builder: (context, child) {
           return MainContainer(
-            appbar: CustomAppBar(
+            appbar: AnimatedCustomAppBar(
               isOpen: _listViewController.scrollState,
-              tabs: tabs,
+              tabs: DefaultTabs.tabs,
               title: 'X',
               actions: const [
                 ProfileAction(),
@@ -66,6 +69,17 @@ class _EntryScreenState extends State<EntryScreen> {
                 ),
                 Container()
               ],
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () async {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ContentCreate(),
+                  ),
+                );
+              },
+              child: const Icon(Icons.add),
             ),
             bottomNavigationBar: CustomBottomNavigation(
               isOpen: _listViewController.scrollState,

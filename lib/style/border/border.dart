@@ -8,6 +8,6 @@ class TotalBorders {
   );
 
   static const BorderRadius primaryRadius = BorderRadius.all(
-    Radius.circular(10.0),
+    Radius.circular(15.0),
   );
 }

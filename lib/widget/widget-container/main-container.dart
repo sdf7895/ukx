@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:twitter_clone_coding/widget/widget-appbar/appbar.dart';
 
 // ignore: must_be_immutable
 class MainContainer extends StatefulWidget {
-  CustomAppBar? appbar;
+  PreferredSizeWidget? appbar;
   Widget child;
   Widget? bottomNavigationBar;
+  FloatingActionButton? floatingActionButton;
   double ratioWidth;
   double ratioHeight;
 
@@ -14,6 +14,7 @@ class MainContainer extends StatefulWidget {
     this.appbar,
     required this.child,
     this.bottomNavigationBar,
+    this.floatingActionButton,
     this.ratioWidth = 1.0,
     this.ratioHeight = 1.0,
   });
@@ -32,6 +33,7 @@ class _MainContainerState extends State<MainContainer> {
         height: MediaQuery.sizeOf(context).height * widget.ratioHeight,
         child: widget.child,
       ),
+      floatingActionButton: widget.floatingActionButton,
       bottomNavigationBar: widget.bottomNavigationBar,
     );
   }

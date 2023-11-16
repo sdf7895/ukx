@@ -7,6 +7,7 @@ class RatioContainer extends StatefulWidget {
   double margin;
   double padding;
   Widget child;
+  BoxDecoration? decoration;
   Color bgColor;
   RatioContainer({
     super.key,
@@ -16,6 +17,7 @@ class RatioContainer extends StatefulWidget {
     this.ratioHeight = 1.0,
     this.margin = 0.0,
     this.padding = 0.0,
+    this.decoration,
   });
 
   @override
@@ -30,6 +32,7 @@ class _RatioContainerState extends State<RatioContainer> {
       child: Container(
         margin: EdgeInsets.only(top: widget.margin),
         color: widget.bgColor,
+        decoration: widget.decoration ?? widget.decoration,
         width: MediaQuery.sizeOf(context).width * widget.ratioWidth,
         height: MediaQuery.sizeOf(context).height * widget.ratioHeight,
         child: widget.child,
