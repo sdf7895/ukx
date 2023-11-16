@@ -33,7 +33,7 @@ class InfoCardHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RatioContainer(
-      ratioHeight: 0.1,
+      ratioHeight: 0.05,
       padding: 10,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
