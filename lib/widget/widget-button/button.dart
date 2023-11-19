@@ -24,16 +24,17 @@ class CustomButton extends StatelessWidget {
         borderRadius: TotalBorders.primaryRadius,
         border: Border.all(
           color: boderColor,
-          width: 8.0,
         ),
       ),
-      child: InkWell(
-        onTap: onClick,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            title,
-            style: TextStyles.defaultAppBarText,
+      child: Center(
+        child: InkWell(
+          onTap: onClick,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              title,
+              style: TextStyles.defaultAppBarText,
+            ),
           ),
         ),
       ),

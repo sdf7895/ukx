@@ -10,4 +10,9 @@ class TotalBorders {
   static const BorderRadius primaryRadius = BorderRadius.all(
     Radius.circular(15.0),
   );
+
+  static const BoxDecoration borderCircle = BoxDecoration(
+    shape: BoxShape.circle,
+    color: Colors.grey,
+  );
 }

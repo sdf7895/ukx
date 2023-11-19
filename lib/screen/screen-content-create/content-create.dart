@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:twitter_clone_coding/style/text/text-style.dart';
+import 'package:twitter_clone_coding/screen/screen-content-create/content-body.dart';
+import 'package:twitter_clone_coding/screen/screen-content-create/content-options-box.dart';
+import 'package:twitter_clone_coding/screen/screen-content-create/controller/content-options.dart';
 import 'package:twitter_clone_coding/texts/strings.dart';
 import 'package:twitter_clone_coding/widget/widget-appbar/appbar-default.dart';
 import 'package:twitter_clone_coding/widget/widget-button/button.dart';
@@ -13,12 +15,14 @@ class ContentCreate extends StatefulWidget {
 }
 
 class _ContentCreateState extends State<ContentCreate> {
+  TextEditingController text = TextEditingController();
+  final ContentOptionsController _controller = ContentOptionsController();
   @override
   Widget build(BuildContext context) {
     return MainContainer(
       appbar: DefaultAppBar(
         leading: CustomButton(
-          title: '취소',
+          title: AppBarDefaultTabBar.cancel,
           bgColor: Colors.black,
           boderColor: Colors.black,
           onClick: () {
@@ -27,12 +31,18 @@ class _ContentCreateState extends State<ContentCreate> {
         ),
         actions: [
           CustomButton(
-            title: '게시하기',
+            title: AppBarDefaultTabBar.add,
             onClick: () {},
           )
         ],
       ),
-      child: Container(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          ContentBodyTextField(optionsController: _controller),
+          ContentOptionsBox(optionsController: _controller),
+        ],
+      ),
     );
   }
 }

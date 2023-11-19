@@ -18,4 +18,9 @@ class TextStyles {
     fontSize: 20,
     fontWeight: FontWeight.w500,
   );
+
+  static const TextStyle contentTextField = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
 }
