@@ -54,8 +54,8 @@ class _ContentCreateState extends State<ContentCreate> {
             ],
           ),
           BottomSheetWidget(
-            ratioHeight: 0.5,
             isOpen: _status,
+            bottomHeight: 0.3,
             child: const SizedBox(
               height: 300,
               child: Text('hi'),

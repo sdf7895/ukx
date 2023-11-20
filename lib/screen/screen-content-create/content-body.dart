@@ -35,27 +35,24 @@ class _ContentBodyTextFieldState extends State<ContentBodyTextField> {
         listenable: widget.optionsController,
         builder: (context, child) {
           return Column(
-            children:
-                _makeTextField(count: widget.optionsController.contentCount),
+            children: _makeTextField(items: widget.optionsController.textField),
           );
         },
       )),
     );
   }
 
-  List<Widget> _makeTextField({required int count}) {
-    List<Widget> list = [];
-    for (int i = 0; i < count; i++) {
-      list.add(
-        CustomTextField(
-          onClick: () {
-            widget.optionsController.contentRemove();
-          },
-        ),
+  List<Widget> _makeTextField({required Map<int, TextFieldModel> items}) {
+    Map<int, Widget> list = {};
+    for (int key in items.keys) {
+      list[key] = CustomTextField(
+        onClick: () {
+          widget.optionsController.contentRemove(index: key);
+        },
       );
     }
 
-    return list;
+    return list.values.toList();
   }
 }
 
