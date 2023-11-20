@@ -7,6 +7,7 @@ class BottomSheetWidget extends StatefulWidget {
   bool isOpen;
   Color bgColor;
   Widget child;
+  double bottomHeight;
   double ratioWidth;
   double ratioHeight;
 
@@ -19,6 +20,7 @@ class BottomSheetWidget extends StatefulWidget {
     this.isOpen = false,
     this.ratioWidth = 1,
     this.ratioHeight = 1,
+    this.bottomHeight = 0.9,
     this.onCurrentStatus,
   });
 
@@ -102,7 +104,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
     );
 
     _offsetAnimation = Tween<Offset>(
-      begin: const Offset(0.0, 3.5),
+      begin: const Offset(0.0, 3.0),
       end: const Offset(0.0, 0.0),
     ).animate(
       CurvedAnimation(
@@ -121,15 +123,9 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
     super.didUpdateWidget(oldWidget);
 
     if (widget.isOpen) {
-      _controller.forward();
-
-      //** 1 을 기준으로 x,y 중 y 값은 아래로 내려갈수록 값이 커짐 그래서 아예 없앨땐 y 값이 커야되고
-      // 반대로  y 값이 작을땐 그만큼 위로 올라옴 */
-      double correction =
-          widget.ratioHeight > 0.5 ? 0 : widget.ratioHeight - 0.2;
       _offsetAnimation = Tween<Offset>(
-        begin: const Offset(0.0, 2.0),
-        end: Offset(0.0, 1 - widget.ratioHeight + correction),
+        begin: const Offset(0.0, 3.0),
+        end: Offset(0.0, 1 - widget.bottomHeight),
       ).animate(
         CurvedAnimation(
           parent: _controller,
@@ -137,6 +133,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget>
         ),
       );
 
+      _controller.forward();
       setState(() {
         _offset = 0.0;
       });
