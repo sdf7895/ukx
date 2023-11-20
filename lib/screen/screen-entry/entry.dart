@@ -8,7 +8,6 @@ import 'package:twitter_clone_coding/static/home-contents.dart';
 import 'package:twitter_clone_coding/style/text/tabs-style.dart';
 import 'package:twitter_clone_coding/texts/strings.dart';
 import 'package:twitter_clone_coding/widget/widget-appbar/appbar-animation.dart';
-import 'package:twitter_clone_coding/widget/widget-appbar/appbar.dart';
 import 'package:twitter_clone_coding/widget/widget-bottomNavi/bottom-navigation.dart';
 import 'package:twitter_clone_coding/widget/widget-container/main-container.dart';
 import 'package:twitter_clone_coding/widget/widget-listView/list.dart';

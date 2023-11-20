@@ -4,11 +4,12 @@ import 'package:twitter_clone_coding/screen/screen-content-create/content-option
 import 'package:twitter_clone_coding/screen/screen-content-create/controller/content-options.dart';
 import 'package:twitter_clone_coding/texts/strings.dart';
 import 'package:twitter_clone_coding/widget/widget-appbar/appbar-default.dart';
+import 'package:twitter_clone_coding/widget/widget-bottom-sheet/bottom-sheet.dart';
 import 'package:twitter_clone_coding/widget/widget-button/button.dart';
 import 'package:twitter_clone_coding/widget/widget-container/main-container.dart';
 
 class ContentCreate extends StatefulWidget {
-  ContentCreate({super.key});
+  const ContentCreate({super.key});
 
   @override
   State<ContentCreate> createState() => _ContentCreateState();
@@ -17,6 +18,9 @@ class ContentCreate extends StatefulWidget {
 class _ContentCreateState extends State<ContentCreate> {
   TextEditingController text = TextEditingController();
   final ContentOptionsController _controller = ContentOptionsController();
+
+  bool _status = false;
+
   @override
   Widget build(BuildContext context) {
     return MainContainer(
@@ -32,15 +36,31 @@ class _ContentCreateState extends State<ContentCreate> {
         actions: [
           CustomButton(
             title: AppBarDefaultTabBar.add,
-            onClick: () {},
+            onClick: () {
+              setState(() {
+                _status = !_status;
+              });
+            },
           )
         ],
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
         children: [
-          ContentBodyTextField(optionsController: _controller),
-          ContentOptionsBox(optionsController: _controller),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ContentBodyTextField(optionsController: _controller),
+              ContentOptionsBox(optionsController: _controller),
+            ],
+          ),
+          BottomSheetWidget(
+            ratioHeight: 0.5,
+            isOpen: _status,
+            child: const SizedBox(
+              height: 300,
+              child: Text('hi'),
+            ),
+          )
         ],
       ),
     );

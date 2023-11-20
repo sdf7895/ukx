@@ -9,7 +9,7 @@ import 'package:twitter_clone_coding/widget/widget-container/ratio-container.dar
 class ContentBodyTextField extends StatefulWidget {
   late ContentOptionsController optionsController;
   ContentBodyTextField({
-    Key? key,
+    super.key,
     required this.optionsController,
   });
 
@@ -47,7 +47,11 @@ class _ContentBodyTextFieldState extends State<ContentBodyTextField> {
     List<Widget> list = [];
     for (int i = 0; i < count; i++) {
       list.add(
-        CustomTextField(),
+        CustomTextField(
+          onClick: () {
+            widget.optionsController.contentRemove();
+          },
+        ),
       );
     }
 
@@ -58,9 +62,11 @@ class _ContentBodyTextFieldState extends State<ContentBodyTextField> {
 // ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
   late FocusNode? focusNode;
+  late Function()? onClick;
   CustomTextField({
     super.key,
     this.focusNode,
+    this.onClick,
   });
 
   @override
@@ -69,24 +75,35 @@ class CustomTextField extends StatelessWidget {
       focusNode: focusNode ?? focusNode,
       style: TextStyles.contentTextField,
       decoration: InputDecoration(
-        hintText: TextFieldHint.content,
-        enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-        ),
-        focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-        ),
-        prefixIcon: Container(
-          margin: const EdgeInsets.all(10.0),
-          width: 30.0,
-          height: 30.0,
-          decoration: TotalBorders.borderCircle,
-          child: const Icon(
-            Icons.person,
-            color: Colors.white,
+          hintText: TextFieldHint.content,
+          hintStyle: const TextStyle(color: Colors.grey),
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
           ),
-        ),
-      ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          prefixIcon: Container(
+            margin: const EdgeInsets.all(10.0),
+            width: 30.0,
+            height: 30.0,
+            decoration: TotalBorders.borderCircle,
+            child: const Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
+          ),
+          suffixIcon: IconButton(
+            icon: const Icon(
+              Icons.remove,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              if (onClick != null) {
+                onClick!();
+              }
+            },
+          )),
     );
   }
 }
