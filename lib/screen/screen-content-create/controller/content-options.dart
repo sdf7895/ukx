@@ -43,10 +43,13 @@ class ContentOptionsController extends ChangeNotifier {
   }
 
   void keyboardEvent(String text, int cursorIndex) {
-    if (_mentionStartIndex != 0) {
+    if (text.isEmpty) return;
+
+    String str = text.substring(cursorIndex - 1, cursorIndex);
+    if (_mentionStartIndex != 0 && str != ' ') {
       if (_mentionStatus) return;
       handleMentionStatus(status: _mentionStringCheck(text));
-    } else if (_mentionStrCheck(text, cursorIndex)) {
+    } else if (_mentionStrCheck(str, cursorIndex)) {
       if (_mentionStatus) return;
       handleMentionStatus(status: true);
     } else {
@@ -55,11 +58,7 @@ class ContentOptionsController extends ChangeNotifier {
     }
   }
 
-  bool _mentionStrCheck(String text, int cursorIndex) {
-    if (text.isEmpty) return false;
-
-    String str = text.substring(cursorIndex - 1, cursorIndex);
-
+  bool _mentionStrCheck(String str, int cursorIndex) {
     switch (str) {
       case '@':
         _mentionStartIndex = cursorIndex;
@@ -73,9 +72,8 @@ class ContentOptionsController extends ChangeNotifier {
   }
 
   bool _mentionStringCheck(String text) {
-    if (text.isEmpty && _mentionStartIndex == 0) return false;
-
-    String result = text.substring(_mentionStartIndex - 1);
+    String result =
+        text.substring(_mentionStartIndex - 1 < 0 ? 0 : _mentionStartIndex - 1);
     RegExp mentionRegExp = RegExp(r'@');
     Iterable<RegExpMatch> matches = mentionRegExp.allMatches(result);
 

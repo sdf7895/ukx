@@ -41,14 +41,11 @@ class _ContentBodyTextFieldState extends State<ContentBodyTextField> {
   List<Widget> _makeTextField({required Map<int, TextFieldModel> items}) {
     Map<int, Widget> list = {};
     for (int key in items.keys) {
-      list[key] = CustomTextField(
-        onClick: () {
-          widget.optionsController.contentRemove(index: key);
-        },
-        onChange: (data, cursorIndex) {
-          widget.optionsController.keyboardEvent(data, cursorIndex);
-        },
-      );
+      list[key] = CustomTextField(onClick: () {
+        widget.optionsController.contentRemove(index: key);
+      }, onChange: (data, cursorIndex) {
+        widget.optionsController.keyboardEvent(data, cursorIndex);
+      });
     }
 
     return list.values.toList();
@@ -59,12 +56,14 @@ class CustomTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final Function(String value, int cursorIndex)? onChange;
   final Function()? onClick;
+  final Function()? onTap;
 
   const CustomTextField({
     Key? key,
     this.focusNode,
     this.onClick,
     this.onChange,
+    this.onTap,
   }) : super(key: key);
 
   @override
@@ -76,47 +75,54 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: _controller,
-      focusNode: widget.focusNode,
-      style: TextStyles.contentTextField,
-      onChanged: (value) {
-        if (widget.onChange != null) {
-          int cursorPosition = _controller.selection.base.offset;
-
-          widget.onChange!(value, cursorPosition);
+    return GestureDetector(
+      onTap: () {
+        if (widget.onTap != null) {
+          widget.onTap();
         }
       },
-      decoration: InputDecoration(
-          hintText: TextFieldHint.content,
-          hintStyle: const TextStyle(color: Colors.grey),
-          enabledBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.transparent),
-          ),
-          prefixIcon: Container(
-            margin: const EdgeInsets.all(10.0),
-            width: 30.0,
-            height: 30.0,
-            decoration: TotalBorders.borderCircle,
-            child: const Icon(
-              Icons.person,
-              color: Colors.white,
+      child: TextField(
+        controller: _controller,
+        focusNode: widget.focusNode,
+        style: TextStyles.contentTextField,
+        onChanged: (value) {
+          if (widget.onChange != null) {
+            int cursorPosition = _controller.selection.base.offset;
+
+            widget.onChange!(value, cursorPosition);
+          }
+        },
+        decoration: InputDecoration(
+            hintText: TextFieldHint.content,
+            hintStyle: const TextStyle(color: Colors.grey),
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
             ),
-          ),
-          suffixIcon: IconButton(
-            icon: const Icon(
-              Icons.remove,
-              color: Colors.white,
+            focusedBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.transparent),
             ),
-            onPressed: () {
-              if (widget.onClick != null) {
-                widget.onClick!();
-              }
-            },
-          )),
+            prefixIcon: Container(
+              margin: const EdgeInsets.all(10.0),
+              width: 30.0,
+              height: 30.0,
+              decoration: TotalBorders.borderCircle,
+              child: const Icon(
+                Icons.person,
+                color: Colors.white,
+              ),
+            ),
+            suffixIcon: IconButton(
+              icon: const Icon(
+                Icons.remove,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                if (widget.onClick != null) {
+                  widget.onClick!();
+                }
+              },
+            )),
+      ),
     );
   }
 }
