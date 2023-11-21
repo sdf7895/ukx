@@ -31,23 +31,22 @@ class _ContentBodyTextFieldState extends State<ContentBodyTextField> {
     return RatioContainer(
       ratioHeight: 0.3,
       child: SingleChildScrollView(
-          child: ListenableBuilder(
-        listenable: widget.optionsController,
-        builder: (context, child) {
-          return Column(
-            children: _makeTextField(items: widget.optionsController.textField),
-          );
-        },
+          child: Column(
+        children: _makeTextField(items: widget.optionsController.textField),
       )),
     );
   }
 
+  /// yet
   List<Widget> _makeTextField({required Map<int, TextFieldModel> items}) {
     Map<int, Widget> list = {};
     for (int key in items.keys) {
       list[key] = CustomTextField(
         onClick: () {
           widget.optionsController.contentRemove(index: key);
+        },
+        onChange: (data, cursorIndex) {
+          widget.optionsController.keyboardEvent(data, cursorIndex);
         },
       );
     }
@@ -56,21 +55,38 @@ class _ContentBodyTextFieldState extends State<ContentBodyTextField> {
   }
 }
 
-// ignore: must_be_immutable
-class CustomTextField extends StatelessWidget {
-  late FocusNode? focusNode;
-  late Function()? onClick;
-  CustomTextField({
-    super.key,
+class CustomTextField extends StatefulWidget {
+  final FocusNode? focusNode;
+  final Function(String value, int cursorIndex)? onChange;
+  final Function()? onClick;
+
+  const CustomTextField({
+    Key? key,
     this.focusNode,
     this.onClick,
-  });
+    this.onChange,
+  }) : super(key: key);
+
+  @override
+  _CustomTextFieldState createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      focusNode: focusNode ?? focusNode,
+      controller: _controller,
+      focusNode: widget.focusNode,
       style: TextStyles.contentTextField,
+      onChanged: (value) {
+        if (widget.onChange != null) {
+          int cursorPosition = _controller.selection.base.offset;
+
+          widget.onChange!(value, cursorPosition);
+        }
+      },
       decoration: InputDecoration(
           hintText: TextFieldHint.content,
           hintStyle: const TextStyle(color: Colors.grey),
@@ -96,8 +112,8 @@ class CustomTextField extends StatelessWidget {
               color: Colors.white,
             ),
             onPressed: () {
-              if (onClick != null) {
-                onClick!();
+              if (widget.onClick != null) {
+                widget.onClick!();
               }
             },
           )),
