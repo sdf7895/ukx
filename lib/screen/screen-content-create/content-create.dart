@@ -24,45 +24,49 @@ class _ContentCreateState extends State<ContentCreate> {
   @override
   Widget build(BuildContext context) {
     return MainContainer(
-      appbar: DefaultAppBar(
-        leading: CustomButton(
-          title: AppBarDefaultTabBar.cancel,
-          bgColor: Colors.black,
-          boderColor: Colors.black,
-          onClick: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          CustomButton(
-            title: AppBarDefaultTabBar.add,
+        appbar: DefaultAppBar(
+          leading: CustomButton(
+            title: AppBarDefaultTabBar.cancel,
+            bgColor: Colors.black,
+            boderColor: Colors.black,
             onClick: () {
-              setState(() {
-                _status = !_status;
-              });
+              Navigator.pop(context);
             },
-          )
-        ],
-      ),
-      child: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ContentBodyTextField(optionsController: _controller),
-              ContentOptionsBox(optionsController: _controller),
-            ],
           ),
-          BottomSheetWidget(
-            isOpen: _status,
-            bottomHeight: 0.3,
-            child: const SizedBox(
-              height: 300,
-              child: Text('hi'),
-            ),
-          )
-        ],
-      ),
-    );
+          actions: [
+            CustomButton(
+              title: AppBarDefaultTabBar.add,
+              onClick: () {
+                setState(() {
+                  _status = !_status;
+                });
+              },
+            )
+          ],
+        ),
+        child: ListenableBuilder(
+          listenable: _controller,
+          builder: (contexnt, widget) {
+            return Stack(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ContentBodyTextField(optionsController: _controller),
+                    ContentOptionsBox(optionsController: _controller),
+                  ],
+                ),
+                BottomSheetWidget(
+                  isOpen: _controller.mentionStatus,
+                  bottomHeight: 0.3,
+                  child: const SizedBox(
+                    height: 300,
+                    child: Text('hi1231231'),
+                  ),
+                )
+              ],
+            );
+          },
+        ));
   }
 }
