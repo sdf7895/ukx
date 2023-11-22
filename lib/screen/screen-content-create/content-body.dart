@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:hashtagable/hashtagable.dart';
 import 'package:twitter_clone_coding/screen/screen-content-create/controller/content-options.dart';
 import 'package:twitter_clone_coding/style/border/border.dart';
 import 'package:twitter_clone_coding/style/text/text-style.dart';
@@ -78,13 +80,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return GestureDetector(
       onTap: () {
         if (widget.onTap != null) {
-          widget.onTap();
+          widget.onTap!();
         }
       },
-      child: TextField(
+      child: HashTagTextField(
         controller: _controller,
         focusNode: widget.focusNode,
-        style: TextStyles.contentTextField,
         onChanged: (value) {
           if (widget.onChange != null) {
             int cursorPosition = _controller.selection.base.offset;
@@ -92,36 +93,39 @@ class _CustomTextFieldState extends State<CustomTextField> {
             widget.onChange!(value, cursorPosition);
           }
         },
+        basicStyle: const TextStyle(color: Colors.white),
+        keyboardAppearance: Brightness.dark,
         decoration: InputDecoration(
-            hintText: TextFieldHint.content,
-            hintStyle: const TextStyle(color: Colors.grey),
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
+          hintText: TextFieldHint.content,
+          hintStyle: const TextStyle(color: Colors.grey),
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.transparent),
+          ),
+          prefixIcon: Container(
+            margin: const EdgeInsets.all(10.0),
+            width: 30.0,
+            height: 30.0,
+            decoration: TotalBorders.borderCircle,
+            child: const Icon(
+              Icons.person,
+              color: Colors.white,
             ),
-            focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.transparent),
+          ),
+          suffixIcon: IconButton(
+            icon: const Icon(
+              Icons.remove,
+              color: Colors.white,
             ),
-            prefixIcon: Container(
-              margin: const EdgeInsets.all(10.0),
-              width: 30.0,
-              height: 30.0,
-              decoration: TotalBorders.borderCircle,
-              child: const Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-            ),
-            suffixIcon: IconButton(
-              icon: const Icon(
-                Icons.remove,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                if (widget.onClick != null) {
-                  widget.onClick!();
-                }
-              },
-            )),
+            onPressed: () {
+              if (widget.onClick != null) {
+                widget.onClick!();
+              }
+            },
+          ),
+        ),
       ),
     );
   }
