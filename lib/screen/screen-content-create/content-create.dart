@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:twitter_clone_coding/items/metion/metion.dart';
 import 'package:twitter_clone_coding/screen/screen-content-create/content-body.dart';
 import 'package:twitter_clone_coding/screen/screen-content-create/content-options-box.dart';
 import 'package:twitter_clone_coding/screen/screen-content-create/controller/content-options.dart';
@@ -58,11 +59,9 @@ class _ContentCreateState extends State<ContentCreate> {
                 ),
                 BottomSheetWidget(
                   isOpen: _controller.mentionStatus,
-                  bottomHeight: 0.3,
-                  child: const SizedBox(
-                    height: 300,
-                    child: Text('hi1231231'),
-                  ),
+                  bgColor: Colors.black,
+                  bottomHeight: 0.8,
+                  child: const MetionBox(),
                 )
               ],
             );

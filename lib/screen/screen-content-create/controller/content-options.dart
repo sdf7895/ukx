@@ -45,7 +45,8 @@ class ContentOptionsController extends ChangeNotifier {
   void keyboardEvent(String text, int cursorIndex) {
     if (text.isEmpty) return;
 
-    String str = text.substring(cursorIndex - 1, cursorIndex);
+    String str =
+        text.substring(cursorIndex != 0 ? cursorIndex - 1 : 0, cursorIndex);
     if (_mentionStartIndex != 0 && str != ' ') {
       if (_mentionStatus) return;
       handleMentionStatus(status: _mentionStringCheck(text));
