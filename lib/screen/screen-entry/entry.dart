@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twitter_clone_coding/controller/list-view-controller.dart';
+import 'package:twitter_clone_coding/dataSource/vedio/vedio.dart';
 import 'package:twitter_clone_coding/items/home/info-card.dart';
 import 'package:twitter_clone_coding/options/actions/setting.dart';
 import 'package:twitter_clone_coding/options/tabs/default.dart';
@@ -24,6 +25,16 @@ class EntryScreen extends StatefulWidget {
 class _EntryScreenState extends State<EntryScreen> {
   List<ContentModel> homeData = HomeContent().homeContent;
   final ListViewController _listViewController = ListViewController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      YoutubeVedio youtubeVedio = YoutubeVedio();
+      await youtubeVedio.getYoutubeVedios();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

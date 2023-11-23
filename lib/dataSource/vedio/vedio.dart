@@ -7,15 +7,16 @@ class YoutubeVedio {
   Future<void> getYoutubeVedios({int? maxResult}) async {
     try {
       Response response = await _dio.get(
-        'vedio',
+        'videos',
         queryParameters: {
           'part': 'snippet',
           'chart': 'mostPopular',
-          'type': 'vedio',
-          'maxResult': 25,
+          'maxResult': 10,
           'key': 'AIzaSyAUJAvH3JbaFBxzREzo5C4c5Awo1hfrRxU',
         },
       );
+
+      print(response.data);
     } catch (error) {}
   }
 }

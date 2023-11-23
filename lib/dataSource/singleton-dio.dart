@@ -6,8 +6,8 @@ class DioSingleton {
   late String baseUrl = '';
   late Dio _dio;
 
-  factory DioSingleton({String? baseUrl}) {
-    _singleton.baseUrl = baseUrl ?? "https://www.googleapis.com/youtube/v3/";
+  factory DioSingleton({String? url}) {
+    _singleton.baseUrl = url ?? "https://www.googleapis.com/youtube/v3/";
     return _singleton;
   }
 
