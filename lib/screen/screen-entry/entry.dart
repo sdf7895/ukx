@@ -74,7 +74,7 @@ class _EntryScreenState extends State<EntryScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ContentCreate(),
+                    builder: (context) => const ContentCreate(),
                   ),
                 );
               },
