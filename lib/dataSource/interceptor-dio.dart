@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class DioInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print('REQUEST[${options.method}] => PATH: ${options.path}');
+    print('REQUEST[${options.method}] => PATH: ${options.baseUrl}');
     super.onRequest(options, handler);
   }
 
