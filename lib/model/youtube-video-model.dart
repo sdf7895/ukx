@@ -15,12 +15,14 @@ class YoutubeVideoListResponse {
 
   factory YoutubeVideoListResponse.fromJson(Map<String, dynamic> json) {
     return YoutubeVideoListResponse(
-      kind: json['kind'],
-      etag: json['etag'],
-      items: List<YoutubeVideoItem>.from(
-          json['items'].map((item) => YoutubeVideoItem.fromJson(item))),
-      nextPageToken: json['nextPageToken'],
-      pageInfo: YoutubeVideoPageInfo.fromJson(json['pageInfo']),
+      kind: json['kind'] ?? '',
+      etag: json['etag'] ?? '',
+      items: (json['items'] as List<dynamic>?)
+              ?.map((item) => YoutubeVideoItem.fromJson(item))
+              .toList() ??
+          [],
+      nextPageToken: json['nextPageToken'] ?? '',
+      pageInfo: YoutubeVideoPageInfo.fromJson(json['pageInfo'] ?? {}),
     );
   }
 }
@@ -40,10 +42,10 @@ class YoutubeVideoItem {
 
   factory YoutubeVideoItem.fromJson(Map<String, dynamic> json) {
     return YoutubeVideoItem(
-      kind: json['kind'],
-      etag: json['etag'],
-      id: json['id'],
-      snippet: YoutubeVideoSnippet.fromJson(json['snippet']),
+      kind: json['kind'] ?? '',
+      etag: json['etag'] ?? '',
+      id: json['id'] ?? '',
+      snippet: YoutubeVideoSnippet.fromJson(json['snippet'] ?? {}),
     );
   }
 }
@@ -77,17 +79,20 @@ class YoutubeVideoSnippet {
 
   factory YoutubeVideoSnippet.fromJson(Map<String, dynamic> json) {
     return YoutubeVideoSnippet(
-      publishedAt: json['publishedAt'],
-      channelId: json['channelId'],
-      title: json['title'],
-      description: json['description'],
-      thumbnails: YoutubeVideoThumbnails.fromJson(json['thumbnails']),
-      channelTitle: json['channelTitle'],
-      tags: List<String>.from(json['tags']),
-      categoryId: json['categoryId'],
-      liveBroadcastContent: json['liveBroadcastContent'],
-      localized: YoutubeVideoLocalized.fromJson(json['localized']),
-      defaultAudioLanguage: json['defaultAudioLanguage'],
+      publishedAt: json['publishedAt'] ?? '',
+      channelId: json['channelId'] ?? '',
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      thumbnails: YoutubeVideoThumbnails.fromJson(json['thumbnails'] ?? {}),
+      channelTitle: json['channelTitle'] ?? '',
+      tags: (json['tags'] as List<dynamic>?)
+              ?.map((tag) => tag.toString())
+              .toList() ??
+          [],
+      categoryId: json['categoryId'] ?? '',
+      liveBroadcastContent: json['liveBroadcastContent'] ?? '',
+      localized: YoutubeVideoLocalized.fromJson(json['localized'] ?? {}),
+      defaultAudioLanguage: json['defaultAudioLanguage'] ?? '',
     );
   }
 }
@@ -109,11 +114,11 @@ class YoutubeVideoThumbnails {
 
   factory YoutubeVideoThumbnails.fromJson(Map<String, dynamic> json) {
     return YoutubeVideoThumbnails(
-      defaultThumbnail: YoutubeVideoThumbnail.fromJson(json['default']),
-      mediumThumbnail: YoutubeVideoThumbnail.fromJson(json['medium']),
-      highThumbnail: YoutubeVideoThumbnail.fromJson(json['high']),
-      standardThumbnail: YoutubeVideoThumbnail.fromJson(json['standard']),
-      maxresThumbnail: YoutubeVideoThumbnail.fromJson(json['maxres']),
+      defaultThumbnail: YoutubeVideoThumbnail.fromJson(json['default'] ?? {}),
+      mediumThumbnail: YoutubeVideoThumbnail.fromJson(json['medium'] ?? {}),
+      highThumbnail: YoutubeVideoThumbnail.fromJson(json['high'] ?? {}),
+      standardThumbnail: YoutubeVideoThumbnail.fromJson(json['standard'] ?? {}),
+      maxresThumbnail: YoutubeVideoThumbnail.fromJson(json['maxres'] ?? {}),
     );
   }
 }
@@ -131,9 +136,9 @@ class YoutubeVideoThumbnail {
 
   factory YoutubeVideoThumbnail.fromJson(Map<String, dynamic> json) {
     return YoutubeVideoThumbnail(
-      url: json['url'],
-      width: json['width'],
-      height: json['height'],
+      url: json['url'] ?? '',
+      width: json['width'] ?? 0,
+      height: json['height'] ?? 0,
     );
   }
 }
@@ -149,8 +154,8 @@ class YoutubeVideoLocalized {
 
   factory YoutubeVideoLocalized.fromJson(Map<String, dynamic> json) {
     return YoutubeVideoLocalized(
-      title: json['title'],
-      description: json['description'],
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
     );
   }
 }
@@ -166,8 +171,8 @@ class YoutubeVideoPageInfo {
 
   factory YoutubeVideoPageInfo.fromJson(Map<String, dynamic> json) {
     return YoutubeVideoPageInfo(
-      totalResults: json['totalResults'],
-      resultsPerPage: json['resultsPerPage'],
+      totalResults: json['totalResults'] ?? 0,
+      resultsPerPage: json['resultsPerPage'] ?? 0,
     );
   }
 }
