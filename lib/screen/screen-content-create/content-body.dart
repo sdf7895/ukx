@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:hashtagable/hashtagable.dart';
 import 'package:twitter_clone_coding/screen/screen-content-create/controller/content-options.dart';
 import 'package:twitter_clone_coding/style/border/border.dart';
-import 'package:twitter_clone_coding/style/text/text-style.dart';
 import 'package:twitter_clone_coding/texts/strings.dart';
 import 'package:twitter_clone_coding/widget/widget-container/ratio-container.dart';
 

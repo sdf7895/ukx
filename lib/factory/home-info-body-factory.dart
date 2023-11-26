@@ -19,7 +19,7 @@ abstract class InfoCardBodyFactory {
         return InfoCardGifBody(item: item);
       case 'text':
         return InfoCardTextBody(item: item);
-      case 'vedio':
+      case 'video':
         return InfoCardVedioBody(item: item);
       default:
         return throw ArgumentError(

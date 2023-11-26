@@ -7,7 +7,10 @@ class ProfileAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {},
-      icon: Icon(Icons.person),
+      icon: const Icon(
+        Icons.person,
+        color: Colors.grey,
+      ),
     );
   }
 }

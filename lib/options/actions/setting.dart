@@ -7,7 +7,10 @@ class SettingAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {},
-      icon: Icon(Icons.settings),
+      icon: const Icon(
+        Icons.settings,
+        color: Colors.grey,
+      ),
     );
   }
 }
