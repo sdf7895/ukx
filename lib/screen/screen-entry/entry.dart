@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:twitter_clone_coding/controller/list-view-controller.dart';
 import 'package:twitter_clone_coding/items/home/info-card-vedio-body.dart';
+import 'package:twitter_clone_coding/items/home/info-card.dart';
 import 'package:twitter_clone_coding/options/actions/setting.dart';
 import 'package:twitter_clone_coding/options/tabs/default.dart';
 import 'package:twitter_clone_coding/screen/screen-content-create/content-create.dart';
@@ -68,7 +69,19 @@ class _EntryScreenState extends State<EntryScreen> {
                             },
                             itemCount: _youtubeVideoViewModel.videos!.length,
                             itemBuilder: (BuildContext context, index) {
-                              return const VideoApp();
+                              return InfoCard(
+                                item: ContentModel(
+                                    user_id: _youtubeVideoViewModel
+                                        .videos![index].id,
+                                    userThumbnail: _youtubeVideoViewModel
+                                        .videos![index]
+                                        .snippet
+                                        .thumbnails
+                                        .mediumThumbnail
+                                        .url,
+                                    content: '',
+                                    contentType: 'video'),
+                              );
                             },
                           ),
                           Container()

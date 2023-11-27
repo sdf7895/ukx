@@ -16,9 +16,9 @@ class InfoCardVedioBody implements InfoCardBody {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 70),
+      padding: const EdgeInsets.only(left: 60),
       child: RatioContainer(
-        ratioHeight: 0.2,
+        ratioHeight: 0.25,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -27,7 +27,7 @@ class InfoCardVedioBody implements InfoCardBody {
               item.content,
               style: TextStyles.infoBodyContentText,
             ),
-            VideoApp(),
+            const VideoApp(),
           ],
         ),
       ),
@@ -44,7 +44,7 @@ class VideoApp extends StatefulWidget {
 
 class _VideoAppState extends State<VideoApp> {
   late VideoPlayerController _controller;
-
+  bool isPlaying = false;
   @override
   void initState() {
     super.initState();
@@ -58,28 +58,37 @@ class _VideoAppState extends State<VideoApp> {
   @override
   Widget build(BuildContext context) {
     return RatioContainer(
-      ratioWidth: 0.5,
-      ratioHeight: 0.5,
-      child: Scaffold(
-        body: Center(
-          child: _controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                )
-              : Container(),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            });
-          },
-          child: Icon(
-            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          ),
+      ratioWidth: 0.76,
+      ratioHeight: 0.2,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16.0),
+        child: Stack(
+          children: [
+            AspectRatio(
+              aspectRatio: _controller.value.aspectRatio,
+              child: VideoPlayer(_controller),
+            ),
+            Positioned.fill(
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isPlaying ? _controller.pause() : _controller.play();
+                    isPlaying = !isPlaying;
+                  });
+                },
+                child: Container(
+                  color: Colors.transparent,
+                  child: Center(
+                    child: Icon(
+                      isPlaying ? Icons.pause : Icons.play_arrow,
+                      size: 50,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
