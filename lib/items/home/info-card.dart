@@ -56,6 +56,12 @@ class InfoCardHeader extends StatelessWidget {
   }
 }
 
+class InfoCardBottomModel {
+  dynamic icon;
+  String count;
+  InfoCardBottomModel({required this.icon, required this.count});
+}
+
 // ignore: must_be_immutable
 class InfoCardBottom extends StatelessWidget {
   ContentModel item;
@@ -64,6 +70,13 @@ class InfoCardBottom extends StatelessWidget {
     required this.item,
   });
 
+  final List<InfoCardBottomModel> _iconData = [
+    InfoCardBottomModel(icon: Icons.remove_red_eye, count: '12.0k'),
+    InfoCardBottomModel(icon: Icons.heart_broken, count: '7.3k'),
+    InfoCardBottomModel(icon: Icons.monitor_heart, count: '2.1k'),
+    InfoCardBottomModel(icon: Icons.auto_graph_rounded, count: '1.2k'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return RatioContainer(
@@ -71,37 +84,33 @@ class InfoCardBottom extends StatelessWidget {
       ratioHeight: 0.3,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.remove_red_eye,
-              color: Colors.white,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.heart_broken,
-              color: Colors.white,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.monitor_heart,
-              color: Colors.white,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.auto_graph_rounded,
-              color: Colors.white,
-            ),
-          ),
-        ],
+        children: _makeOptions(),
       ),
     );
+  }
+
+  List<Widget> _makeOptions() {
+    return _iconData
+        .map(
+          (e) => Row(
+            children: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  e.icon,
+                  color: Colors.white,
+                ),
+              ),
+              Text(
+                e.count,
+                style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        )
+        .toList();
   }
 }

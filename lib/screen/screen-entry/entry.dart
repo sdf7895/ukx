@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:twitter_clone_coding/controller/list-view-controller.dart';
-import 'package:twitter_clone_coding/items/home/info-card-vedio-body.dart';
 import 'package:twitter_clone_coding/items/home/info-card.dart';
 import 'package:twitter_clone_coding/options/actions/setting.dart';
 import 'package:twitter_clone_coding/options/tabs/default.dart';
@@ -51,8 +50,8 @@ class _EntryScreenState extends State<EntryScreen> {
               builder: (BuildContext content, Widget? widget) {
                 return _youtubeVideoViewModel.isLoading
                     ? const SizedBox(
-                        width: 1.0, // 너비 설정
-                        height: 1.0, // 높이 설정
+                        width: 1.0,
+                        height: 1.0,
                         child: CircularProgressIndicator(),
                       )
                     : TabBarView(

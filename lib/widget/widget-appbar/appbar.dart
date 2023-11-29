@@ -55,7 +55,12 @@ class _CustomAppBarWithoutAnimationState extends State<CustomAppBar> {
       bottom: widget.tabs != null
           ? TabBar(
               tabs: widget.tabs!,
-              indicatorPadding: const EdgeInsets.symmetric(horizontal: 70),
+              labelColor: Colors.white,
+              labelStyle:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: Colors.black,
+              dividerColor: Colors.black,
             )
           : null,
     );

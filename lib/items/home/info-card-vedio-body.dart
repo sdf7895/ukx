@@ -49,7 +49,7 @@ class _VideoAppState extends State<VideoApp> {
   void initState() {
     super.initState();
     _controller = VideoPlayerController.networkUrl(Uri.parse(
-        'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'))
+        'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4'))
       ..initialize().then((_) {
         setState(() {});
       });
