@@ -6,15 +6,17 @@ class YoutubeVideo {
   final Dio _dio = DioSingleton().dio;
 
   Future<List<YoutubeVideoItem>?> getYoutubeVideo({int? maxResult}) async {
+    dynamic success = {
+      'part': 'snippet',
+      'chart': 'mostPopular',
+      'maxResult': 25,
+      'key': 'AIzaSyAUJAvH3JbaFBxzREzo5C4c5Awo1hfrRxU',
+    };
+
     try {
       Response response = await _dio.get(
         'videos',
-        queryParameters: {
-          'part': 'snippet',
-          'chart': 'mostPopular',
-          'maxResult': 25,
-          'key': 'AIzaSyAUJAvH3JbaFBxzREzo5C4c5Awo1hfrRxU',
-        },
+        queryParameters: success,
       );
 
       if (response.statusCode == 200) {

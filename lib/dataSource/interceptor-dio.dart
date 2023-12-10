@@ -4,6 +4,12 @@ class DioInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     print('REQUEST[${options.method}] => PATH: ${options.baseUrl}');
+    options.validateStatus = (statusCode) {
+      if (statusCode == 400 || statusCode == 200) {
+        return true;
+      }
+      return false;
+    };
     super.onRequest(options, handler);
   }
 
@@ -18,6 +24,7 @@ class DioInterceptor extends Interceptor {
   Future onError(DioException err, ErrorInterceptorHandler handler) async {
     print(
         'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
+
     super.onError(err, handler);
   }
 }
